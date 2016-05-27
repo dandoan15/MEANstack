@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Power of AngularJS!</title>
+</head>
+
+
+
+<body ng-app="myApp">
+
+
+
+
+
+<a ng-href="#cars"><button type="button">Cars</button></a>
+
+<a ng-href="#people"><button type="button" >People</button></a>
+
+<a ng-href="#places"><button type="button" >Places</button></a>
+
+<a ng-href="#"><button type="button"> Clear</button></a>
+
+
+<br>
+<br>
+<br>
+
+
+<div ng-view=""></div>
+
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+
+<script>
+
+	var app = angular.module("myApp", ['ngRoute']);
+
+	app.config(['$routeProvider', function($routeProvider)
+	{
+		$routeProvider
+
+		.when('/',
+		{
+
+		})
+
+		.when('/cars',
+		{
+			templateUrl: 'views/cars.html',
+			//controller: 'carController'
+		})
+
+		.when('/people',
+		{
+			templateUrl: 'views/people.html',
+			//controller: 'peopleController'
+		})
+
+		.when('/places',
+		{
+			templateUrl: 'views/places.html',
+			//controller: 'placesController'
+		})
+
+		.otherwise(
+		{
+			redirectTo: '/'
+		})
+
+
+	}]);
+
+
+	app.controller('carController', function($scope, $http)
+	{
+
+		$http.get('/allCars').then(
+			function(response)
+			{
+				$scope.cars = response.data;
+				console.log(response.data);
+
+			})
+	});
+
+	app.controller('peopleController', function($scope, $http)
+	{
+
+		$http.get('/allPeople').then(
+			function(response)
+			{
+				$scope.people = response.data;
+				console.log(response.data);
+
+			})
+	});
+
+	app.controller('placesController', function($scope, $http)
+	{
+
+		$http.get('/allPlaces').then(
+			function(response)
+			{
+				$scope.places = response.data;
+				console.log(response.data);
+
+			})
+	});
+
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>stepOne</title>
+</head>
+<body>
+
+
+<div ng-app="" ng-init="quantity=3;cost=5;firstName='John';lastName='Doe';person={firstName:'John',lastName:'Doe'}">
+	<p> These are called {{ expression }} </p>
+
+ 	<p>My first expression: {{ 5 + 5 }}</p>
+
+ 	<input style="background-color:lightblue" ng-model="myCol" value="lightblue">
+
+ 	<p>Total in dollar: {{ quantity * cost }}</p>
+
+ 	<p>Total in dollar(using ng-bind == expression): <span ng-bind="quantity * cost"></span></p>
+
+ 	<p>The name is {{ firstName + " " + lastName }}</p>
+
+ 	<p>The name is {{ person.lastName }}</p>
+
+ 	<a href="AJStwo.html"><button type="button">Go to the Next Page!</button></a>
+
+</div>
+
+
+
+</body>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+</html>

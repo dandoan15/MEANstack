@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Step Two</title>
+</head>
+<body>
+
+<!-- ng-blank are the angularJS's directives within the HTML; two parts consist of markup(HTML attributes, element names, CSS classes) and JavaScript(code to define template data and behavior of HTML element) -->
+<!-- ALL DIRECTIVES ARE PARSED AND COMPILED BY THE AngularJS compiler; also linked to scopes to produce live views -->
+<!-- ng-app & ng-controller can be in seperate div, don't have to be in the same div -->
+<div ng-app="myApp" ng-controller="myController">
+
+
+ 	<p>My first expression: {{ expression }}</p>
+
+ 	<p>Total in dollar: {{ totalCost }}</p>
+
+ 	<p>The name is {{ firstName + " " + lastName }}</p>
+
+ 	<p>The last name is {{ person.lastName }}</p>
+
+ 	<a href="AJSthree.html"><button type="button">Go to the Next Page!</button></a>
+
+</div>
+
+
+<!-- The angular script website must be above the actually script or else it won't know where to reference the angularjs interface from -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+<script>
+
+	/*
+		Modules provide a container for different parts of your app: controllers, services, filters, directives, etc.
+		For more information google angularJS [w/e] to learn more information
+
+		In summary, modules are used to manage code injection and are not executed when loaded
+
+		angular.module(name, [requires], [configFn]) 
+			name = name of your module to be used for the ng-app="name"
+			[requires]= [] parameter in the module definition can be used to define dependent modules(such as other modules, services, other objects registered with the injector service);
+						Without the [] parameter, you are not creating a new module, but retrieving an existing one
+			[configFn] = defines a function that is called during the configuration stage, to setup module information.
+
+
+	*/
+	var app = angular.module("myApp", []);
+
+	/*
+		A custom made service created to basically be used as a seperate function.
+		angular.service(name, [factoryFN])
+			name = name of your service you created
+			[factoryFN] = a callback function you create that will be used to instantiate the service
+
+		An alternative to services are called "filters"; google it for more information
+
+	*/
+	var myService = app.service('myServiceName', 
+		function()
+		{
+			this.getFirstName = function(json)
+			{
+				var firstName = json.firstName;
+				return firstName;
+			}
+		}
+		);
+
+	/*
+		app.controller(name, [dependencies, callback function])
+			dependencies = Services(similar to libraries) to include within your controller
+				angularJS built-in services are $animate, $cacheFactory, $cookies, $http == just google angularJS built-in services for more information
+
+			if you want to include your service within the dependencies, 
+			it "MUST MATCH IN ORDER" within the callback function parameters
+
+			EVERYTHING WITHIN THE CONTROLLER HAS SCOPE WITHIN IT!
+
+		In summary, controller provide a mechanism to map data between services and the view and instantiated when the 'ng-controller' directive is associated with
+		an HTML element in the AngularJS template
+			*callback is trigger when the controller is instantiated and a child $scope is created.
+	*/
+	app.controller("myController",['$scope', 'myServiceName', function($scope, object)
+	{
+		var quantity = 3;
+		var cost = 5;
+
+		$scope.person = {firstName:'John',lastName:'Doe'};
+
+		$scope.expression = 5 + 5;
+
+		$scope.totalCost = quantity * cost;
+
+		$scope.firstName = "John";
+
+		$scope.lastName = "Doe";
+
+		/*
+			Services is used by using the object that is name within the parameter of the function above
+		*/
+		var json = {firstName:'John',lastName:'Doe'};
+
+		console.log(object.getFirstName(json));
+
+	}]);
+</script>
+
+<!-- <script src="seperateModule.js"></script>
+<script src="seperateController.js"></script> -->
+
+</body>
+</html>

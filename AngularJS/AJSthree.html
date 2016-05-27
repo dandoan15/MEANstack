@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Step three</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<!-- ng-repeat similar to a for loop = 'variableName' in 'list'(from $scope within controller) and iterate the data bind "number of items in 'list' " -->
+<div ng-repeat="x in records">{{x}}</div>
+
+<br>
+<br>
+
+<input type="text"  placeholder="Enter first text here!" ng-model="first">
+
+<button ng-click = "click()">Submit</button>
+
+<br>
+<br>
+
+<input type="text" placeholder="Enter second text here!" ng-model="second">
+
+<button ng-click = "click2()">Submit</button>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+<script>
+var app = angular.module("myApp", []);
+app.controller("myCtrl", function($scope) {
+  $scope.records = [
+    "Alfreds Futterkiste",
+    "Berglunds snabbkop",
+    "Centro comercial Moctezuma",
+    "Ernst Handel",
+  ]
+
+  $scope.click = function()
+  {
+  	var message = $scope.first;
+  	console.log(message);
+  }
+
+    $scope.click2 = function()
+  {
+  	var message = $scope.second;
+  	console.log(message);
+  }
+ 
+});
+</script>
+
+</body>
+</html>
